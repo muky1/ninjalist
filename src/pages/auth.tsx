@@ -1,17 +1,35 @@
 import styles from "../styles/Auth.module.css"
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "./atoms/isLoggedInState";
+import { userState } from "./atoms/userState";
+ 
 const LoginPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
+    const [user, setUser] = useRecoilState(userState);
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
-   function handleLogin (event: any) {
+    const handleEmailChange = (event: React.FormEvent<EventTarget>) => {
+        setUser((prevState) => ({
+            ...prevState,
+            email: (event.target as HTMLInputElement).value
+        }))
+    }
+
+    const handlePasswordChange = (event: React.FormEvent<EventTarget>) => {
+        setUser((prevState) => ({
+            ...prevState,
+            password: (event.target as HTMLInputElement).value
+        }))
+    }
+
+   function handleLogin (event: React.FormEvent<EventTarget>) {
         event.preventDefault()
 
-        if (email === "email@gmail.com" && password === "password123") {
+        if (user.email === "email@gmail.com" && user.password === "password123") {
+            setIsLoggedIn(true);
             router.push("/");
         } else {
             setErrorMessage("Invalid email or password");
@@ -27,10 +45,20 @@ const LoginPage = () => {
                 <h1>Login</h1>
                 <form className={styles.form} onSubmit={handleLogin}>
                     <div>
-                        <input type="email" name="email" id="email" placeholder="Email" className={styles.input} onChange={(event) => setEmail(event.target.value)}/>
+                        <input type="email" 
+                        name="email" id="email" 
+                        placeholder="Email" 
+                        className={styles.input} 
+                        onChange={handleEmailChange}
+                        value={user.email}/>
                     </div>
                     <div>
-                        <input type="password" name="password" id="password" placeholder="Password" className={styles.input} onChange={(event) => setPassword(event.target.value)}/>
+                        <input type="password" 
+                        name="password" id="password" 
+                        placeholder="Password" 
+                        className={styles.input} 
+                        onChange={handlePasswordChange}
+                        value={user.password}/>
                     </div>
                     {errorMessage && <div>{errorMessage}</div>}
                     <button type="submit" className={styles.button}>Login</button>
