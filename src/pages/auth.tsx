@@ -2,8 +2,8 @@ import styles from "../styles/Auth.module.css"
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { isLoggedInState } from "./atoms/isLoggedInState";
-import { userState } from "./atoms/userState";
+import { isLoggedInState } from "../components/atoms/isLoggedInState";
+import { userState } from "../components/atoms/userState";
  
 const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState("");

@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import { isLoggedInState } from "../pages/atoms/isLoggedInState";
+import { isLoggedInState } from "./atoms/isLoggedInState";
 import { useRecoilValue } from "recoil";
 import LoginPage from "@/pages/auth";
 
