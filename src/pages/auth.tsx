@@ -39,8 +39,7 @@ const LoginPage = () => {
    
 
     return ( 
-        <div>
-            
+        <div className={styles["container"]}>  
             <div className={styles["form-wrapper"]}>
                 <h1>Login</h1>
                 <form className={styles.form} onSubmit={handleLogin}>
